@@ -22,6 +22,14 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+    if not Message.query.first():
+       sample_message = Message(
+           body="Hello",
+           username="tester"
+       )
+       db.session.add(sample_message)
+       db.session.commit()
+
 @app.route('/messages')
 def messages():
     messages = Message.query.all()
