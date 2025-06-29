@@ -14,7 +14,13 @@ app.json.compact = False
 CORS(app)
 migrate = Migrate(app, db)
 
+
 db.init_app(app)
+
+
+
+with app.app_context():
+    db.create_all()
 
 @app.route('/messages')
 def messages():
@@ -85,6 +91,4 @@ def delete_message(id):
 
     return jsonify({"message": f"Message {id} deleted successfully"}), 200
 
-@app.before_first_request
-def create_tables():
-    db.create_all()
+
