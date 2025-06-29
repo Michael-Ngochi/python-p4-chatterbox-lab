@@ -84,3 +84,7 @@ def delete_message(id):
     db.session.commit()
 
     return jsonify({"message": f"Message {id} deleted successfully"}), 200
+
+@app.before_first_request
+def create_tables():
+    db.create_all()
